@@ -19,8 +19,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'cpf',
         'email',
         'password',
+        'type',
     ];
 
     /**
@@ -40,5 +42,10 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    public static $types = [
+        'user' => 'USER',
+        'shop' => 'SHOPKEEPER',
     ];
 }

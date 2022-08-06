@@ -22,6 +22,7 @@ class AuthController extends Controller
             $validated = $request->validated();
 
             $validated['password'] = Hash::make($validated['password']);
+            $validated['type'] = User::$types[$validated['type']];
 
             User::create($validated);
 

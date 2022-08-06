@@ -25,8 +25,10 @@ class RegisterUserRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:50',
+            'cpf' => 'required|numeric|unique:users',
             'email' => 'required|email|unique:users|max:50',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8',
+            'type' => 'required|in:user,shop',
         ];
     }
 }
