@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('cpf', 11)->nullable()->unique();
+            $table->string('type', 10)->nullable();
+            $table->integer('balance')->default(0); // integer because floating points are too imprecise for a banking context
         });
     }
 
@@ -27,6 +29,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('cpf');
+            $table->dropColumn('type');
+            $table->dropColumn('balance');
         });
     }
 };
