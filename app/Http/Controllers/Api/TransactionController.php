@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MakeTransactionRequest;
 use App\Services\TransactionService;
+use App\Exceptions\Services\TransactionService\TransactionException;
 use App\Exceptions\Services\TransactionService\NotificationException;
 use App\Exceptions\Services\TransactionService\GetAuthorizationException;
 
@@ -57,7 +58,7 @@ class TransactionController extends Controller
                     'notification' => 'failed'
                 ]
             ]);
-        } catch (GetAuthorizationException $exc) {
+        } catch (GetAuthorizationException | TransactionException $exc) {
             return response()->json([
                 'status' => 'error',
                 'message' => $exc->getMessage(),

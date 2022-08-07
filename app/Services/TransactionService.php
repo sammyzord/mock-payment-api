@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 use App\Models\User;
+use App\Exceptions\Services\TransactionService\TransactionException;
 use App\Exceptions\Services\TransactionService\NotificationException;
 use App\Exceptions\Services\TransactionService\GetAuthorizationException;
 
@@ -33,6 +34,10 @@ class TransactionService
   public static function makeTransaction(User $payer, User $payee, int $value): void
   {
     try {
+      if ($payer->balance < $value) {
+        throw new TransactionException('User balance insufficient');
+      }
+
       DB::beginTransaction();
 
       $payer->balance = $payer->balance - $value;
